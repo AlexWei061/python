@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MY USUALLY USING WEBSITES</title>
+  </head>
+  <body>
+    {% for tag in tags %}
+      <h2>{{tag.tagname}}</h2>
+      <ol>
+        {% for web in tag.webs %}
+          <li><a href = {{web.url}}>{{web.webname}}</a></li>
+        {% endfor %}
+      </ol>
+    {% endfor %}
+  </body>
+</html>

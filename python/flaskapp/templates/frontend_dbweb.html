@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MY USUALLY USING WEBSITES</title>
+    <script src="{{url_for('static', filename='jquery-3.4.1.js')}}"></script>
+  </head>
+  <body>
+    <p id="append_point"></p>
+      <h2>firt header</h2>
+      <ol>
+         <li><a href = www.xxx.com>xxx</a></li>
+      </ol>
+  </body>
+
+  <script type=text/javascript>
+    $(document).ready(function() {
+        console.log("start to run append function");
+        append_where = $("#append_point")
+        console.log(append_where)
+        var header = "<h2>append header</h2>";
+        append_where.append(header);
+        var li_table_start = "<ol>";
+        var website = "<li><a href = 'https://www.sina.com.cn'>sina</a></li>";
+        var li_table_end = "</ol>";
+        append_where.append(li_table_start);
+        append_where.append(website);
+        append_where.append(li_table_end);
+        //append_where.append()
+        //append webs
+    });
+  </script>
+
+</html>
