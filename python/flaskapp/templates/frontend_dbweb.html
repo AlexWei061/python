@@ -2,31 +2,41 @@
 <html>
   <head>
     <title>MY USUALLY USING WEBSITES</title>
+    <link rel="icon"  href="https://csdnimg.cn/public/favicon.ico" >
     <script src="{{url_for('static', filename='jquery-3.4.1.js')}}"></script>
   </head>
   <body>
-    <p id="append_point"></p>
-      <h2>firt header</h2>
-      <ol>
-         <li><a href = www.xxx.com>xxx</a></li>
-      </ol>
+    <div id="append_anchor">
+
+    </div>
   </body>
 
   <script type=text/javascript>
     $(document).ready(function() {
-        console.log("start to run append function");
-        append_where = $("#append_point")
-        console.log(append_where)
-        var header = "<h2>append header</h2>";
-        append_where.append(header);
-        var li_table_start = "<ol>";
-        var website = "<li><a href = 'https://www.sina.com.cn'>sina</a></li>";
-        var li_table_end = "</ol>";
-        append_where.append(li_table_start);
-        append_where.append(website);
-        append_where.append(li_table_end);
-        //append_where.append()
-        //append webs
+        $.getJSON(
+          '/api/collected_web',  //url to server
+
+          { /*parameters to server, no need in this case*/
+            Date: new Date()
+          },
+
+          //success call back function
+          function(result) {
+            var append_anchor = $("#append_anchor");
+            var webtags = result; // give data a expressive name
+            $.each( webtags, function(item) {
+              //append header and list framework
+              append_anchor.append(`<h2> ${webtags[item].tagname} </h2>`);
+              append_anchor.append(`<ol id=ol_${item}>`);
+
+              var ol_anchor = $(`#ol_${item}`);
+              var webs = webtags[item].webs
+              $.each( webs, function(item){
+                var website = `<li> <a href = ${webs[item].url} > ${webs[item].webname} </a></li>`
+                ol_anchor.append(website);
+              });
+            });
+          });
     });
   </script>
 

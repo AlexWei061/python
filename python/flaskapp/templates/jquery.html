@@ -2,7 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Flask JQuery</title>
+    <title>Flask JQuery -- MY CALCULATOR</title>
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <script src="{{url_for('static', filename='jquery-3.4.1.js')}}"></script>
     <!-- 插入jquery -->
     <script src="{{url_for('static', filename='jquery-3.4.1.js')}}"></script>
   </head>
@@ -11,6 +13,9 @@
   <!--四则运算-->
     <p>
       <p>Pleas input your arithmetic, such as: 432+794 or 34/3+2**10</p>
+      <p>If you want to input Pi, you can just input "pi"</p>
+      <p>If you want to calculate the square root of a number, you an input "sqrt(num)"</p>
+      <p>If you want to calculate </p>
       <input type=text size=30 name=calc_expression id="id_e"> =
       <span id=result>?</span>
     </p>

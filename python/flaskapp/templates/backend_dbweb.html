@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>MY USUALLY USING WEBSITES</title>
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <script src="{{url_for('static', filename='jquery-3.4.1.js')}}"></script>
   </head>
   <body>
     {% for tag in tags %}
@@ -12,5 +14,34 @@
         {% endfor %}
       </ol>
     {% endfor %}
+    <p>
+      <input type=text size=10 name=tag id="id_tagname" value="Category" >
+      <input type=text size=20 name=webname id="id_webname" value="Web Name" οnfοcus="if(this.value==this.defaultValue){this.value=''}">
+      <input type=text size=50 name=weburl id="id_weburl" value="URL">
+    </p>
+    <p><input type="button" id="add_url" value="add"></p>
+
   </body>
+  <script type=text/javascript>
+    //四则运算
+    $(function() {
+        $("#id_weburl").focus(function cls() {
+          $("#id_weburl").text("");
+        });
+        function add_url() {
+            $.getJSON('/api/add_url', {
+                tagname: $("#id_tagname").val(),
+                webname: $("#id_webname").val(),
+                weburl: $("#id_weburl").val()
+            },
+            function(data) {
+              window.location.reload()
+            });
+        };
+        // 绑定click事件
+        $('#add_url').bind('click', add_url);
+        $('#id_tagname').bind('click', add_url);
+    });
+</script>
+
 </html>
