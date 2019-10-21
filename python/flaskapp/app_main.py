@@ -1,11 +1,28 @@
-from flask import Flask, Response, redirect, url_for, request, session, abort
+from flask import Flask, Response, redirect, url_for, request, send_from_directory, abort
 from flask_login import LoginManager, UserMixin, \
     login_required, login_user, logout_user
+import os
 
 from app import app
+from app_api import app_api
+
+username_password_dir = {"ty.wei@foxmail.com":"myweb"}
 
 app_main = Flask(__name__)
 app_main.register_blueprint(app)
+app_main.register_blueprint(app_api)
+
+#app_main.config['SERVER_NAME'] = 'alex.com'
+
+#@app.route('/favicon.ico')
+#def favicon():
+#    return url_for('static', filename='favicon.ico')
+    #return send_from_directory(os.path.join(app.root_path, 'static'),
+    #                           'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+#with app_main.app_context():
+#    app_main.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon.ico'))
+#app_main.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon.ico'))
 
 # config
 app_main.config.update(
@@ -43,7 +60,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if username == "ty.wei@foxmail.com" and password == "myweb":
+        if password == username_password_dir[username]:
             id = username
             user = User(id)
             login_user(user)
@@ -82,4 +99,4 @@ def load_user(userid):
     return User(userid)
 
 if __name__ == "__main__":
-    app_main.run()
+    app_main.run(host="0.0.0.0")
