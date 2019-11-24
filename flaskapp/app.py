@@ -9,19 +9,14 @@ from bson import json_util
 
 # 连接到mongodb
 def connect_db(dbname):
-    MONGO_URI = "mongodb://192.168.56.101:27017/"
-    client = pymongo.MongoClient(MONGO_URI,
-                                 username='admin',
-                                 password='1739456',
-                                 authSource='admin',
-                                 authMechanism='SCRAM-SHA-256')
+    MONGO_URI = "mongodb://127.0.0.1:27017/"
+    client = pymongo.MongoClient(MONGO_URI)
     db = client[dbname]
     return db
 
 
 def find_data(col, all=True, filter=None):
     # filter = {"tagname":"Code"}  #example filter
-
     mydb = connect_db("alex_db")
     if all == True:
         return mydb[col].find()
@@ -37,11 +32,6 @@ def add_new_web(col, web):
 
 app = Blueprint('app', __name__)
 
-@app.route("/world")
-@login_required
-def world():
-    return "Hello World from app 2!"
-
 
 @app.route("/")
 @login_required
@@ -52,7 +42,7 @@ def hello():  # This is my home page
 # @login_required
 class HelloView(View):
     @login_required
-    def dispatch_request(self, lang=None):  # This is my codes
+    def dispatch_request(self, lang = None):  # This is my codes
         if lang == None:
             return render_template('mycodes.html')
         elif lang == "c++":
@@ -75,12 +65,9 @@ def test_jquery():
 
 
 @app.route('/backend-dbweb')
+@login_required
 def backend_dbwebs():
     mywebs = find_data("myweb", all=True)
     return render_template("backend_dbweb.html", tags=mywebs)
 
-
-@app.route('/frontend-dbweb')
-def front_dbwebs():
-    return render_template("frontend_dbweb.html")
 
