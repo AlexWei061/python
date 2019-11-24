@@ -10,12 +10,8 @@ app_api = Blueprint('app_api', __name__)
 
 # 连接到mongodb
 def connect_db(dbname):
-    MONGO_URI = "mongodb://192.168.56.101:27017/"
-    client = pymongo.MongoClient(MONGO_URI,
-                                 username='admin',
-                                 password='1739456',
-                                 authSource='admin',
-                                 authMechanism='SCRAM-SHA-256')
+    MONGO_URI = "mongodb://127.0.0.1:27017/"
+    client = pymongo.MongoClient(MONGO_URI)
     db = client[dbname]
     return db
 
@@ -43,7 +39,7 @@ def add_numbers():
         result = eval(calc_expression)
     except Exception as e:
         result = "Please input the correct expression!"
-    return jsonify(result=result)
+    return jsonify(result = result)
 
 
 @app_api.route('/api/collected_web')
