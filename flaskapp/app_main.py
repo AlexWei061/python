@@ -5,7 +5,6 @@ import os
 
 from app import app
 from app_api import app_api
-
 username_password_dir = {"ty.wei@foxmail.com":"myweb"}
 
 app_main = Flask(__name__)
