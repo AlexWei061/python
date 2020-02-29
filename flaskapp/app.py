@@ -40,7 +40,7 @@ def hello():  # This is my home page
 
 
 # @login_required
-class HelloView(View):
+class MyCodes(View):
     @login_required
     def dispatch_request(self, lang = None):  # This is my codes
         if lang == None:
@@ -52,10 +52,30 @@ class HelloView(View):
         elif lang == "java":
             return render_template("java.html")
 
+my_codes_view = MyCodes.as_view('mycodes')
+app.add_url_rule('/mycodes', view_func = my_codes_view)
+app.add_url_rule('/mycodes/<lang>', view_func = my_codes_view)
 
-view = HelloView.as_view('mycodes')
-app.add_url_rule('/mycodes', view_func=view)
-app.add_url_rule('/mycodes/<lang>', view_func=view)
+class Games(View):
+    # @app.route('/games')
+    @login_required
+    def dispatch_request(slef, lang = None):
+        if lang == None:
+            return render_template("games.html")
+        else:
+            return "Hello"
+
+games_view = Games.as_view('games')
+app.add_url_rule('/games', view_func = games_view)
+app.add_url_rule('/games/<lang>', view_func = games_view)
+
+'''
+@app.route('/games')
+#@login_required
+def test_games():
+    return "xxxxx"
+
+'''
 
 
 @app.route('/test/jquery/calculator')
@@ -70,4 +90,7 @@ def backend_dbwebs():
     mywebs = find_data("myweb", all=True)
     return render_template("backend_dbweb.html", tags=mywebs)
 
-
+@app.route('/happynewyear')
+@login_required
+def happy_new_year():
+    return render_template("newyear.html")

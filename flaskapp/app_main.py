@@ -3,6 +3,14 @@ from flask_login import LoginManager, UserMixin, \
     login_required, login_user, logout_user
 import os
 
+from math import *
+from flask.views import View
+from flask import Blueprint, url_for, render_template, request, jsonify, send_from_directory
+from flask_login import login_required
+import os
+import pymongo
+from bson import json_util
+
 from app import app
 from app_api import app_api
 username_password_dir = {"ty.wei@foxmail.com":"myweb"}
@@ -81,8 +89,18 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return Response("""<p>Logged out</p>
-                       <a href="/">Go back ro home page</a>""")
+    return Response(
+        """
+        <head>
+          <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='favicon.ico')}}">
+          <title>LOGGED OUT</title>
+        </head>
+        <body>
+          <p>Logged out</p>
+          <a href="/">Go back ro home page</a>
+        </body>
+        """
+    )
 
 
 # handle login failed

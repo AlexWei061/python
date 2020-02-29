@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MY WEB -- HOMEPAGE</title>
+    <title>MY WEB -- HOME PAGE</title>
     <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
     <script src="{{url_for('static', filename='jquery-3.4.1.js')}}"></script>
   </head>
   <body>
-    <h1>Hello User</h1>
-    <h3>--This is your home page</h3>
+    <ul>
     <!--Some codes I've writen-->
-    <a href = "/mycodes">My Codes</a><br>
+      <li><a href = "/mycodes">My Codes</a></li>
     <!--My usually using websites' url-->
-    <a href = "/backend-dbweb">My usually using websites</a><br>
+      <li><a href = "/backend-dbweb">My usually using websites</a></li>
     <!--My  Calculator-->
-    <a href = "/test/jquery/calculator">My Calculator</a><br>
+      <li><a href = "/test/jquery/calculator">My Calculator</a></li>
+    <!--Some Littel Games-->
+      <li><a href="/games">Games</a></li>
+    <!--Happy New Year-->
+      <li><a href = "/happynewyear">Happy New Year</li>
     <!--Logout-->
-    <a href = "/logout">Logout</a>
+      <li><a href = "/logout">Logout</a></li>
+    </ul>
   </body>
 </html>
