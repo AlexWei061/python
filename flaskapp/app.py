@@ -46,24 +46,26 @@ class MyCodes(View):
         if lang == None:
             return render_template('mycodes.html')
         elif lang == "c++":
-            return render_template('c++.html')
+            return render_template('my_codes/c++.html')
         elif lang == "python":
-            return render_template("python.html")
+            return render_template("my_codes/python.html")
         elif lang == "java":
-            return render_template("java.html")
+            return render_template("my_codes/java.html")
 
 my_codes_view = MyCodes.as_view('mycodes')
 app.add_url_rule('/mycodes', view_func = my_codes_view)
 app.add_url_rule('/mycodes/<lang>', view_func = my_codes_view)
 
 class Games(View):
-    # @app.route('/games')
     @login_required
     def dispatch_request(slef, lang = None):
+        game_list = ["game1"]
         if lang == None:
-            return render_template("games.html")
+            return render_template("my_games/games.html")
+        elif lang in game_list:
+            return render_template('my_games/game1.html')
         else:
-            return "Hello"
+            return """It is under production"""
 
 games_view = Games.as_view('games')
 app.add_url_rule('/games', view_func = games_view)
