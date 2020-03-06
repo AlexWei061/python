@@ -1,4 +1,5 @@
 from math import *
+from flask import *
 from flask.views import View
 from flask import Blueprint, url_for, render_template, request, jsonify, send_from_directory
 from flask_login import login_required
@@ -38,7 +39,6 @@ app = Blueprint('app', __name__)
 def hello():  # This is my home page
     return render_template("myweb__home.html")
 
-
 # @login_required
 class MyCodes(View):
     @login_required
@@ -63,27 +63,29 @@ class Games(View):
         if lang == None:
             return render_template("my_games/games.html")
         elif lang in game_list:
-            return render_template('my_games/game1.html')
+            add_str = 'my_games/' + lang + '.html'
+            return render_template(add_str)
         else:
-            return """It is under production"""
+            return """<h1>It is under production</h1>"""
 
 games_view = Games.as_view('games')
 app.add_url_rule('/games', view_func = games_view)
 app.add_url_rule('/games/<lang>', view_func = games_view)
 
-'''
-@app.route('/games')
-#@login_required
-def test_games():
-    return "xxxxx"
+class Study(View):
+    def dispatch_request(self, lang = None):
+        study_list = ['calculator', 'translator']
+        if lang == None:
+            return render_template('my_study/study.html')
+        elif lang in study_list:
+            add_str = 'my_study/' + lang + '.html'
+            return render_template(add_str)
+        else:
+            return '''It is under production'''
 
-'''
-
-
-@app.route('/test/jquery/calculator')
-@login_required
-def test_jquery():
-    return render_template("jquery.html")
+study_view = Study.as_view('stduy')
+app.add_url_rule('/study', view_func = study_view)
+app.add_url_rule('/study/<lang>', view_func = study_view)
 
 
 @app.route('/backend-dbweb')
