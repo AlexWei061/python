@@ -2,33 +2,33 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Flask JQuery -- MY TRANSLATOR</title>
+    <title>MY TRANSLATOR</title>
     <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='favicon.ico')}}">
     <!-- 插入jquery -->
     <script src="{{url_for('static', filename='jquery-3.4.1.js')}}"></script>
 </head>
 <body>
-    <input type=text size=30 name=trans_expression id="id_e"> means:
-    <span id=result>No input</span>
-    <p><input type="button" id="translate" value="translate"></p>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="English word..." id="id_e">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" id="translate">Translate</button>
+          </span>
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+    <table class="table">
+      <tbody id="append_anchor">
+      </tbody>
+    </table>
 </body>
+
 <script type=text/javascript>
     var $SCRIPT_ROOT = {{request.script_root|tojson|safe}};
 </script>
-<script type="text/javascript">
-    //翻译英文-->中文
-    $(function() {
-        function translate() {
-            console.log($SCRIPT_ROOT)
-            $.getJSON($SCRIPT_ROOT + '/api/translate', {
-                trans_expression: $("#id_e").val()
-            },
-            function(data) {
-                $('#result').text(data.result);
-            });
-        };
-        // 绑定click事件
-        $('#translate').bind('click', translate);
-    });
-</script>
+
+<script src="/static/translate.js"></script>
+
 </html>

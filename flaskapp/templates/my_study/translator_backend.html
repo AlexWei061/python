@@ -7,12 +7,12 @@
     <!-- 插入jquery -->
     <script src="{{url_for('static', filename='jquery-3.4.1.js')}}"></script>
 </head>
-<body>
 
+<body>
     <div class="row">
       <div class="col-lg-6">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="English word..." id="id_e">
+          <input type="text" class="form-control" value="{{data['search_phrase']}}" placeholder="English word..." id="id_e">
           <span class="input-group-btn">
             <button class="btn btn-default" type="button" id="translate">Translate</button>
           </span>
@@ -20,11 +20,14 @@
       </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
 
-        <span id=result></span>
-        <div >
-        </div>
     <table class="table">
-      <tbody id="append_anchor">
+      <tbody>
+        {% for pair in data['trans_table'] %}
+          <tr>
+              <td>{{pair['word']}}</td>
+              <td>{{pair['trans']}}</td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
 </body>
@@ -33,6 +36,15 @@
     var $SCRIPT_ROOT = {{request.script_root|tojson|safe}};
 </script>
 
-<script src="/static/translate.js"></script>
+<script>
+    $("#translate").click(function(){
+        var search_phrase = $("#id_e").val();
+        search_phrase = search_phrase.trim();
+        if (search_phrase === ""){
+            return;
+        }
+        window.location.href = "translator?word=" + search_phrase;
+    });
+</script>
 
 </html>

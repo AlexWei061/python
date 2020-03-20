@@ -5,6 +5,7 @@ from flask import Blueprint, url_for, render_template, request, jsonify, send_fr
 from flask_login import login_required
 import os
 import pymongo
+from app_api import *
 from bson import json_util
 
 
@@ -14,15 +15,6 @@ def connect_db(dbname):
     client = pymongo.MongoClient(MONGO_URI)
     db = client[dbname]
     return db
-
-
-def find_data(col, all=True, filter=None):
-    # filter = {"tagname":"Code"}  #example filter
-    mydb = connect_db("alex_db")
-    if all == True:
-        return mydb[col].find()
-    else:
-        return mydb[col].find(filter)
 
 
 def add_new_web(col, web):
@@ -73,19 +65,31 @@ app.add_url_rule('/games', view_func = games_view)
 app.add_url_rule('/games/<lang>', view_func = games_view)
 
 class Study(View):
-    def dispatch_request(self, lang = None):
+    def dispatch_request(self, domain = None):
         study_list = ['calculator', 'translator']
-        if lang == None:
+        if domain == None:
             return render_template('my_study/study.html')
-        elif lang in study_list:
-            add_str = 'my_study/' + lang + '.html'
+        elif domain == "translator":
+            search_phrase = request.args.get('word')
+            if search_phrase == None:
+                return render_template('my_study/translator_backend.html', data={})
+            else:
+                data = {"search_phrase":search_phrase}
+                trans_table = get_translation(search_phrase)
+                data["trans_table"] = trans_table
+                return render_template('my_study/translator_backend.html', data=data)
+
+        elif domain in study_list:
+            add_str = 'my_study/' + domain + '.html'
             return render_template(add_str)
         else:
             return '''It is under production'''
 
 study_view = Study.as_view('stduy')
 app.add_url_rule('/study', view_func = study_view)
-app.add_url_rule('/study/<lang>', view_func = study_view)
+app.add_url_rule('/study/<domain>', view_func = study_view)
+
+
 
 
 @app.route('/backend-dbweb')
