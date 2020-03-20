@@ -24,7 +24,7 @@ word_dict = {
 "unit sales forecast" : "销售数量预测",
 "inventory on hand" : "手头现有库存量",
 "production schedule" : "生产进度表",
-"production after adj" : "调整后的生产",
+"production after" : "adj, 调整后的生产",
 "physical plant" : "生产厂房",
 "1st shift capacity" : "第一轮班生产能力",
 "buy/sell capacity" : "买卖能力",
