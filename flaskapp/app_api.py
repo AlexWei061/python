@@ -5,6 +5,7 @@ from flask_login import login_required
 import os
 import pymongo
 from bson import json_util
+import random
 
 app_api = Blueprint('app_api', __name__)
 
@@ -49,6 +50,11 @@ def add_numbers():
         result = "Please input the correct expression!"
     return jsonify(result = result)
 
+# 随机数
+@app_api.route('/api/generator')
+def print_rand_num():
+    r_num = random.randint(0, 100)
+    return jsonify(result = r_num)
 
 @app_api.route('/api/collected_web')
 def collected_webs():

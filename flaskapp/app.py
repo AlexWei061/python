@@ -66,7 +66,7 @@ app.add_url_rule('/games/<lang>', view_func = games_view)
 
 class Study(View):
     def dispatch_request(self, domain = None):
-        study_list = ['calculator', 'translator']
+        study_list = ['calculator', 'translator', 'rand_generator']
         if domain == None:
             return render_template('my_study/study.html')
         elif domain == "translator":
