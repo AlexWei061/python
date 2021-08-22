@@ -68,7 +68,7 @@ app.add_url_rule('/games/<lang>', view_func = games_view)
 
 class Collections(View):
     def dispatch_request(self, domain=None):
-        col_list = ['happy_new_year', 'quick_eats']
+        col_list = ['happy_new_year', 'quick_eats', 'keyboard_hero']
         if domain == None:
             return render_template("my_collections/collections.html")
         elif domain in col_list:
