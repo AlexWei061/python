@@ -64,6 +64,24 @@ games_view = Games.as_view('games')
 app.add_url_rule('/games', view_func = games_view)
 app.add_url_rule('/games/<lang>', view_func = games_view)
 
+
+
+class Collections(View):
+    def dispatch_request(self, domain=None):
+        col_list = ['happy_new_year']
+        if domain == None:
+            return render_template("my_collections/collections.html")
+        elif domain in col_list:
+            add_str = 'my_collections/' + domain + '.html'
+            return render_template(add_str)
+        else:
+            return """<h1>It is under production</h1>"""
+
+cols_view = Collections.as_view('collections')
+app.add_url_rule('/collections', view_func = cols_view)
+app.add_url_rule('/collections/<domain>', view_func = cols_view)
+
+
 class Study(View):
     def dispatch_request(self, domain = None):
         study_list = ['calculator', 'translator', 'rand_generator']
@@ -90,8 +108,6 @@ app.add_url_rule('/study', view_func = study_view)
 app.add_url_rule('/study/<domain>', view_func = study_view)
 
 
-
-
 @app.route('/backend-dbweb')
 @login_required
 def backend_dbwebs():
@@ -101,4 +117,4 @@ def backend_dbwebs():
 @app.route('/happynewyear')
 @login_required
 def happy_new_year():
-    return render_template("newyear.html")
+    return render_template("my_collections/.html")
