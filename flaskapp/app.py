@@ -51,7 +51,7 @@ app.add_url_rule('/mycodes/<lang>', view_func = my_codes_view)
 class Games(View):
     @login_required
     def dispatch_request(slef, lang = None):
-        game_list = ["game1"]
+        game_list = ["game1", "greedy_snake"]
         if lang == None:
             return render_template("my_games/games.html")
         elif lang in game_list:
@@ -113,8 +113,3 @@ app.add_url_rule('/study/<domain>', view_func = study_view)
 def backend_dbwebs():
     mywebs = find_data("myweb", all=True)
     return render_template("backend_dbweb.html", tags=mywebs)
-
-@app.route('/happynewyear')
-@login_required
-def happy_new_year():
-    return render_template("my_collections/.html")
