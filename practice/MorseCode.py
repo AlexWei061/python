@@ -53,5 +53,7 @@ def decode(string):                               # 把摩尔斯码转成英文
             decoded_string += " "
     return decoded_string  # 返回decode_string
 
+code = input()
+print(code)
 
-print(decode(morse_code))
+print(decode(code))
